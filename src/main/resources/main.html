@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>丢丢</title>
+    <script src="js/vue.js"></script>
+    <script src="js/jquery.js"></script>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .nav{
+        width: 100%;
+        height: 50px;
+        background: cornflowerblue;
+        position:fixed;
+        left: 0px;
+
+        z-index:999;
+    }
+    /*.main_box{*/
+
+    /*    height: 100%;*/
+    /*    background: aliceblue;*/
+    /*    position: relative;*/
+
+    /*}*/
+    .main{
+        margin-top: 50px;
+        position: absolute;
+        background: white;
+        width: 70%;
+
+        margin-left: 15%;
+    }
+    html,body{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: aliceblue;
+    }
+    .navRight{
+        float: right;
+        margin-top: 5px;
+        margin-right: 228px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .header{
+        width: 40px;
+        height: 40px;
+        border-radius: 40px;
+    }
+    .navLeft{
+        height: 40px;
+        font-size: 38px;
+        float: left;
+        margin-left: 228px;
+    }
+    .headerTitle{
+        margin-left: 6px;
+    }
+    .list{
+
+        width: 700px;
+        height: auto;
+        border: solid black 1px;
+        margin: 2% auto;
+    }
+    .listHeader:after{
+        content:"";
+        display:block;
+        clear:both;
+    }
+    .listHeader{
+        width: 90%;
+        margin: 0 auto;
+    }
+    .listHeader .left{
+        float: left;
+        margin-top: 5px;
+        margin-left: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .listHeader .left span{
+        font-size: 22px;
+        margin-left: 5px;
+    }
+    .listHeader .right{
+        height: 50px;
+        width: 100px;
+        border: solid black 1px;
+        float: right;
+    }
+    .listText{
+        width: 90%;
+        height: auto;
+        margin: 2% auto;
+        border: solid black 1px;
+        word-wrap: break-word;
+        word-break: break-all;
+        overflow: hidden;
+    }
+</style>
+<body>
+
+            <div class="nav" id="nav">
+                <div class="navLeft">丢丢</div>
+                <div class="navLeft"></div>
+                <div class="navRight">
+                    <img class="header" src="img/header.png" >
+                    <span class="headerTitle">登录</span>
+                    <span class="headerTitle">注册</span>
+                </div>
+            </div>
+            <div class="main">
+                <div class="list">
+                    <div class="listHeader">
+                        <div class="left">
+                            <img class="header" src="img/header.png">
+                            <span v-html="name">123</span>
+                        </div>
+
+                        <div class="right"></div>
+                    </div>
+                    <div class="listText">
+                    </div>
+                </div>
+                <div class="list">
+                    <div class="listHeader">
+                        <div class="left">
+                            <img class="header" src="img/header.png">
+                            <span v-html="name">123</span>
+                        </div>
+
+                        <div class="right"></div>
+                    </div>
+                    <div class="listText">
+                    </div>
+                </div>
+                <div class="list">
+                    <div class="listHeader">
+                        <div class="left">
+                            <img class="header" src="img/header.png">
+                            <span v-html="name">123</span>
+                        </div>
+
+                        <div class="right"></div>
+                    </div>
+                    <div class="listText">
+                    </div>
+                </div>
+
+
+                </div>
+</body>
+<script>
+    let navVue = new Vue({
+        el:'#nav',
+        data:{
+
+        }
+
+    });
+</script>
+</html>
