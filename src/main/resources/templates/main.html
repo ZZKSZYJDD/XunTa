@@ -6,8 +6,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>丢丢</title>
-    <script src="js/vue.js"></script>
-    <script src="js/jquery.js"></script>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/axios.js"></script>
 </head>
 <style>
     *{
@@ -113,63 +114,62 @@
 </style>
 <body>
 
-            <div class="nav" id="nav">
-                <div class="navLeft">丢丢</div>
-                <div class="navLeft"></div>
-                <div class="navRight">
-                    <img class="header" src="img/header.png" >
-                    <span class="headerTitle">登录</span>
-                    <span class="headerTitle">注册</span>
-                </div>
-            </div>
-            <div class="main">
-                <div class="list">
-                    <div class="listHeader">
-                        <div class="left">
-                            <img class="header" src="img/header.png">
-                            <span v-html="name">123</span>
-                        </div>
+    <div class="nav" id="nav">
+        <div class="navLeft">丢丢</div>
+        <div class="navLeft"></div>
+        <div class="navRight">
+            <img class="header" src="../static/img/header.png" >
+            <span class="headerTitle">登录</span>
+            <span class="headerTitle">注册</span>
+        </div>
+    </div>
+    <div  id="list" class="main">
+        <div v-for="item in list_info">
+            <div  v-for="data in item"  class="list" >
 
-                        <div class="right"></div>
+                <div class="listHeader">
+                    <div class="left">
+                        <img class="header" :src="data.eventimg">
+                        <span >{{ data.eventpublisherid }}</span>
+                    </div>
+
+                        <div class="right">
+                            <p  v-if="data.eventstate == 1">已完成</p>
+                            <p v-else> 未完成</p>
+                        </div>
                     </div>
                     <div class="listText">
+                        {{ data.eventdetails }}
                     </div>
+                    <div class="time">创建时间： {{ data.eventstarttime }}</div>
+                    <div class="time">最后一次修改时间： {{ data.eventmodifytime }}</div>
+                    <div class="time" v-if="data.eventstate == 1">完成时间： {{ data.eventovertime }}</div>
                 </div>
-                <div class="list">
-                    <div class="listHeader">
-                        <div class="left">
-                            <img class="header" src="img/header.png">
-                            <span v-html="name">123</span>
-                        </div>
-
-                        <div class="right"></div>
-                    </div>
-                    <div class="listText">
-                    </div>
-                </div>
-                <div class="list">
-                    <div class="listHeader">
-                        <div class="left">
-                            <img class="header" src="img/header.png">
-                            <span v-html="name">123</span>
-                        </div>
-
-                        <div class="right"></div>
-                    </div>
-                    <div class="listText">
-                    </div>
-                </div>
-
-     
-                </div>
+        </div>
+    </div>
 </body>
 <script>
-    let navVue = new Vue({
-        el:'#nav',
-        data:{
 
+    let list = new Vue({
+        el:'#list',
+        data(){
+            return {
+                list_info: []
+            }
+        },
+        mounted(){
+            axios
+                .post('/lostAll')
+                .then(function (response) {
+                    let list_data = response.data;
+                    console.log(list_data);
+                    Vue.set(list.list_info,0,list_data);
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log("失败");
+                });
         }
 
-    });
+    })
 </script>
 </html>
