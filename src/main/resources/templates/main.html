@@ -111,24 +111,41 @@
         word-break: break-all;
         overflow: hidden;
     }
+    .list .listHeader .left p{
+        margin-left: -39px;
+        background-color: blue;
+        border-radius: 33px;
+        font-size: 21px;
+        padding: 7px;
+    }
 </style>
 <body>
 
     <div class="nav" id="nav">
         <div class="navLeft">丢丢</div>
         <div class="navLeft"></div>
-        <div class="navRight">
+        <div class="navRight" v-if="login == 0">
             <img class="header" src="../static/img/header.png" >
-            <span class="headerTitle">登录</span>
-            <span class="headerTitle">注册</span>
+            <a class="headerTitle" href="/login">登录</a>
+            <a class="headerTitle" href="/register" >注册</a>
+        </div>
+        <div class="navRight" v-else>
+            <label @click="user()">
+                <img class="header" :src="userInfo.userimageurl" >
+                <a class="headerTitle" v-text="userInfo.username"></a>
+            </label>
+            <a class="headerTitle" @click="logout()">注销</a>
         </div>
     </div>
+
     <div  id="list" class="main">
         <div v-for="item in list_info">
             <div  v-for="data in item"  class="list" >
 
                 <div class="listHeader">
                     <div class="left">
+                        <p v-if="data.eventkind == 1">寻找失主</p>
+                        <p v-else>寻找物品</p>
                         <img class="header" :src="data.eventimg">
                         <span >{{ data.eventpublisherid }}</span>
                     </div>
@@ -170,6 +187,55 @@
                 });
         }
 
-    })
+    });
+
+    let nav = new Vue({
+
+        el:'#nav',
+        data(){
+            return {
+                userInfo:[],
+                login:0
+            }
+        },
+        mounted(){
+            axios
+                .post('/nowUser')
+                .then( (response)=> {
+                    console.log(response.data);
+                    if (response.data=="") {
+                        this.login = 0;
+                    }else {
+                        let userInfo = response.data;
+                        console.log(userInfo);
+                        this.userInfo = userInfo;
+                        this.login = 1;
+                        console.log(this.userInfo);
+                    }
+
+                })
+                .catch( (error)=>{ // 请求失败处理
+                    this.login = 0;
+                    console.log("用户获取失败");
+                });
+        },
+        methods:{
+            logout(){
+                axios
+                    .get('/logout')
+                    .then( (response)=> {
+                        console.log("退出成功");
+                        this.login = 0;
+                        this.userInfo = [];
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log("退出失败");
+                    });
+            },
+
+        }
+    });
+
+
 </script>
 </html>

@@ -4,10 +4,12 @@ import java.util.Date;
 
 /**
  * 
- * @date 2020/11/08
+ * @date 2020/11/12
  */
 public class Event {
     private Integer eventid;
+
+    private String eventkind;
 
     private String eventstate;
 
@@ -25,8 +27,9 @@ public class Event {
 
     private Integer eventpublisherid;
 
-    public Event(Integer eventid, String eventstate, Date eventstarttime, Date eventovertime, Date eventmodifytime, String eventdetails, String eventimg, Integer eventtypeid, Integer eventpublisherid) {
+    public Event(Integer eventid, String eventkind, String eventstate, Date eventstarttime, Date eventovertime, Date eventmodifytime, String eventdetails, String eventimg, Integer eventtypeid, Integer eventpublisherid) {
         this.eventid = eventid;
+        this.eventkind = eventkind;
         this.eventstate = eventstate;
         this.eventstarttime = eventstarttime;
         this.eventovertime = eventovertime;
@@ -43,6 +46,14 @@ public class Event {
 
     public void setEventid(Integer eventid) {
         this.eventid = eventid;
+    }
+
+    public String getEventkind() {
+        return eventkind;
+    }
+
+    public void setEventkind(String eventkind) {
+        this.eventkind = eventkind;
     }
 
     public String getEventstate() {

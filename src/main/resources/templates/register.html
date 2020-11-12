@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>丢丢</title>
+    <script src="../static/js/vue.js"></script>
+    <script src="../static/js/axios.js"></script>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    .tit{
+        width: 82px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 38px;
+        background: #fff;
+    }
+    .header{
+        border-bottom: 1px solid #ddd;
+        height: 28px;
+        margin-bottom: 28px;
+        text-align: center;
+        width: 100%;
+    }
+    .input{
+
+        height: 40px;
+        margin: 0 auto;
+        width: 100%;
+        border-radius: 4px;
+        color: #606266;
+        line-height: 40px;
+        padding: 0 15px;
+        border: 1px solid #dcdfe6;
+        outline-color: #00a1d6;
+    }
+    .text{
+        border: none;
+    }
+    form{
+        width: 31%;
+        margin: 6% auto;
+    }
+    .captcha{
+        width: 40%;
+    }
+    .captcha-img{
+        width: 50%;
+        height: 40px;
+        float: right;
+        margin-right: -31px;
+        margin-bottom: 40px;
+        border-radius: 4px;
+    }
+
+
+
+</style>
+<body>
+
+    <div class="header">
+        <div class="tit">
+            注册
+        </div>
+    </div>
+    <form id="form" action="/registerUser" method="post">
+        <input class="input" v-model="id"  type="tel" pattern="^1[3456789]\d{9}$" required placeholder="请输入11位手机号">
+        <div class="input text">
+
+        </div>
+        <input class="input" v-model="pwd" type="password" placeholder="密码">
+        <div class="input text"> </div>
+        <div style="width:100%">
+            <input class="input captcha" v-model="captcha" type="text" placeholder="验证码">
+
+            <a class="captchaBox" href="javascript:reloadCaptcha()">
+                <img class="captcha-img" id="captchaImg" src="/captcha"
+                     style="width: 272px;height: 39px;"/>
+            </a>
+        </div>
+        <input class="input " style="width:107%;background: #00a1d6" type="submit" value="注册">
+    </form>
+
+<script>
+    function reloadCaptcha() {
+        var captchaImg = document.getElementById("captchaImg");
+        captchaImg.src = "/captcha?t=" + (new Date()).getTime();
+    }
+    let form = new Vue({
+        el:#form,
+        data:{
+            id:'',
+            pwd:'',
+            captcha:''
+
+        },
+        watch: {
+            'id': function (newValue, oldValue) {
+                this.id = newValue.replace(/[^\d]/g, '').substring(0, 11)
+
+            }
+        }
+    })
+</script>
+</body>
+</html>
